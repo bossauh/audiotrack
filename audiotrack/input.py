@@ -33,6 +33,8 @@ class InputTrack:
         The blocksize of this InputTrack. Passed onto `sd.InputStream`. Defaults to None.
     `device` : Optional[Union[int, str]]
         The device to use for this InputTrack. Passed onto `sd.InputStream`. Defaults to None.
+    `dtype` : str
+        The dtype to be fed into `sd.InputStream`. Defaults to `"float32"`
     `chunk_size` : int
         The size of each chunk returned from `.read()`. Defaults to 512.
     """
@@ -44,6 +46,7 @@ class InputTrack:
         samplerate: Optional[int] = None,
         blocksize: Optional[int] = None,
         device: Optional[Union[int, str]] = None,
+        dtype: str = "float32",
         chunk_size: int = 512,
     ) -> None:
 
@@ -53,6 +56,7 @@ class InputTrack:
         self.samplerate = samplerate or config.default_input_track_samplerate
         self.blocksize = blocksize
         self.device = device
+        self.dtype = dtype
         self.chunk_size = chunk_size
         self.stream = None
 
@@ -119,7 +123,10 @@ class InputTrack:
 
     def __start__(self) -> None:
         with sd.InputStream(
-            samplerate=self.samplerate, blocksize=self.blocksize, device=self.device
+            samplerate=self.samplerate,
+            blocksize=self.blocksize,
+            device=self.device,
+            dtype=self.dtype,
         ) as f:
             self.stopped = False
             self.stream = f

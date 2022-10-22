@@ -8,7 +8,7 @@ import math
 import queue
 import threading
 import time
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 import numpy as np
 import sounddevice as sd
@@ -50,6 +50,8 @@ class OutputTrack:
     `blocksize` : int
         The blocksize to be fed into `sd.OutputStream`. Defaults to `None` which means to calculate it
         based on the sample rate of the track.
+    `device` : Optional[Union[int, str]]
+        The device to use for this OutputTrack. Passed onto `sd.OutputTrack`. Defaults to None.
     `dtype` : str
         The dtype to be fed into `sd.OutputStream`. Defaults to `"float32"`
 
@@ -67,6 +69,7 @@ class OutputTrack:
         queue_size: int = 20,
         samplerate: Optional[int] = None,
         blocksize: Optional[int] = None,
+        device: Optional[Union[int, str]] = None,
         dtype: str = "float32",
         vol: float = 1.0,
     ) -> None:
@@ -76,6 +79,7 @@ class OutputTrack:
         self.callback = callback
         self.samplerate = samplerate or config.default_output_track_samplerate
         self.blocksize = blocksize
+        self.device = device
         self.dtype = dtype
 
         #### Internal attributes
@@ -374,6 +378,7 @@ class OutputTrack:
             blocksize=self.blocksize,
             channels=2,
             callback=self.__callback__,
+            device=self.device,
             dtype=self.dtype,
         ):
             while not self._stop_signal:
