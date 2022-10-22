@@ -96,7 +96,7 @@ class InputTrack:
         while not self.stopped:
             time.sleep(0.001)
 
-    def read(self) -> Optional[np.ndarray]:
+    def read(self, check_size: int = 1024) -> Optional[np.ndarray]:
         """
         Read the data coming from the InputStream.
 
@@ -120,7 +120,7 @@ class InputTrack:
             return
 
         self.__buffer.append(data)
-        if len(self.__buffer) > 1024:
+        if len(self.__buffer) > check_size:
             self.__buffer.pop(0)
 
         return data
