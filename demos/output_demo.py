@@ -12,10 +12,13 @@ Note: You need to `pip install coloredlogs` for this to work.
 
 import logging
 import os
+import sys
 import threading
 import time
 
 import coloredlogs
+
+sys.path.append(os.path.join(os.getcwd(), ".."))
 
 from audiotrack.audiofile import AudioFile
 from audiotrack.config import config
