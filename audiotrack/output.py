@@ -54,6 +54,8 @@ class OutputTrack:
         The device to use for this OutputTrack. Passed onto `sd.OutputTrack`. Defaults to None.
     `dtype` : str
         The dtype to be fed into `sd.OutputStream`. Defaults to `"float32"`
+    `stream_parameters` : Optional[dict]
+        Extra parameters to be passed onto `sd.OutputStream`. Defaults to None.
 
     Audio Attributes
     ----------------
@@ -71,6 +73,7 @@ class OutputTrack:
         blocksize: Optional[int] = None,
         device: Optional[Union[int, str]] = None,
         dtype: str = "float32",
+        stream_parameters: Optional[dict] = None,
         vol: float = 1.0,
     ) -> None:
 
@@ -81,6 +84,7 @@ class OutputTrack:
         self.blocksize = blocksize
         self.device = device
         self.dtype = dtype
+        self.stream_parameters = stream_parameters or {}
 
         #### Internal attributes
         self.shape = None
@@ -376,10 +380,10 @@ class OutputTrack:
         with sd.OutputStream(
             samplerate=self.samplerate,
             blocksize=self.blocksize,
-            channels=2,
             callback=self.__callback__,
             device=self.device,
             dtype=self.dtype,
+            **self.stream_parameters,
         ):
             while not self._stop_signal:
                 try:

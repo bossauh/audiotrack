@@ -37,6 +37,8 @@ class InputTrack:
         The dtype to be fed into `sd.InputStream`. Defaults to `"float32"`
     `chunk_size` : int
         The size of each chunk returned from `.read()`. Defaults to 512.
+    `stream_parameters` : Optional[dict]
+        Extra parameters to be passed onto `sd.InputStream`. Defaults to None.
     """
 
     def __init__(
@@ -48,6 +50,7 @@ class InputTrack:
         device: Optional[Union[int, str]] = None,
         dtype: str = "float32",
         chunk_size: int = 512,
+        stream_parameters: Optional[dict] = None,
     ) -> None:
 
         # Attributes
@@ -58,6 +61,7 @@ class InputTrack:
         self.device = device
         self.dtype = dtype
         self.chunk_size = chunk_size
+        self.stream_parameters = stream_parameters or {}
         self.stream = None
 
         #### Internal attributes
@@ -127,6 +131,7 @@ class InputTrack:
             blocksize=self.blocksize,
             device=self.device,
             dtype=self.dtype,
+            **self.stream_parameters
         ) as f:
             self.stopped = False
             self.stream = f
