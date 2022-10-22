@@ -1,18 +1,12 @@
 # Audiotrack
 
----
-
 A object oriented multi purpose audio library built with python. At it's core, audiotrack is just a fancy extension to [sounddevice's](https://python-sounddevice.readthedocs.io/en/0.4.5/) stream classes.
 
 ## Installation
 
----
-
 To install audiotrack, simply run `pip install audiotrack` on your terminal.
 
 ## Tracks
-
----
 
 Think of tracks as layers in a video editing software like premiere. Premiere can have multiple audio tracks playing the same audio at once, and audiotrack can do it as well with the use of the `OutputTrack` class.
 
@@ -20,21 +14,15 @@ But audiotrack goes beyond output, audiotrack also supports the `InputTrack` cla
 
 ### Callbacks
 
----
-
 Each track supports a `callback` parameter which accepts a function. That function can then modify either the incoming input from a microphone before it gets returned to `.read()` or the outgoing audio data before it goes to the output device.
 
 This is useful if you want to let's say remove background noise from a input device before passing it onto somewhere or if you simply just want to add a sound effect to a piece of audio data.
 
 ## Demos
 
----
-
 There are demos included inside the `demos` folder of this repository.
 
 # LICENSE
-
----
 
 MIT License
 
