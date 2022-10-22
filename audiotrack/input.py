@@ -115,7 +115,7 @@ class InputTrack:
         if self.callback:
             data = self.callback(self, data, self.overflow)
 
-        data = np.resize(data, (self.chunk_size, 2))
+        data = np.resize(data, (self.chunk_size, self.stream.channels))
         if any((data == x).all() for x in self.__buffer):
             return
 
