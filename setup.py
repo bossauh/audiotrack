@@ -19,7 +19,7 @@ setup(
     author="Philippe Mathew",
     author_email="philmattdev@gmail.com",
     url="https://github.com/bossauh/audiotrack",
-    download_url="",
+    download_url="https://github.com/bossauh/audiotrack/archive/refs/tags/v_01.tar.gz",
     keywords=["audio", "recording"],
     install_requires=install_requires,
     long_description=long_description,
