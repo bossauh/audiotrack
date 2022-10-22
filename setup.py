@@ -8,7 +8,6 @@ install_requires = [
     "soundfile==0.10.3.post1",
     "ffmpy==0.3.0",
 ]
-long_description = (Path(__file__).parent / "README.md").read_text()
 
 setup(
     name="audiotrack",
@@ -22,6 +21,4 @@ setup(
     download_url="https://github.com/bossauh/audiotrack/archive/refs/tags/v_02.tar.gz",
     keywords=["audio", "recording"],
     install_requires=install_requires,
-    long_description=long_description,
-    long_description_content_type="text/markdown",
 )
