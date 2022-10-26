@@ -1,3 +1,4 @@
+import logging
 import threading
 import time
 from typing import Callable, Optional, Union
@@ -6,6 +7,8 @@ import numpy as np
 import sounddevice as sd
 
 from .config import config
+
+logger = logging.getLogger(__name__)
 
 
 class InputTrack:
@@ -82,19 +85,26 @@ class InputTrack:
         start returning data. This function won't return until the stream is actually started.
         """
 
+        logger.debug(f"Starting input track '{self.name}'")
         threading.Thread(target=self.__start__, daemon=True).start()
 
         while self.stopped:
             time.sleep(0.001)
+        logger.info(f"Input track '{self.name}' started.")
 
     def stop(self) -> None:
         """
         Stop the InputTrack. This makes it so that you can no longer call `.read()`. This function
         won't return until the stream is actually stopped.
         """
+
+        logger.debug(f"Stopping input track '{self.name}'")
+
         self._stop_signal = True
         while not self.stopped:
             time.sleep(0.001)
+
+        logger.info(f"Input track '{self.name}' stopped.")
 
     def read(self, check_size: int = 1024) -> Optional[np.ndarray]:
         """
@@ -131,7 +141,7 @@ class InputTrack:
             blocksize=self.blocksize,
             device=self.device,
             dtype=self.dtype,
-            **self.stream_parameters
+            **self.stream_parameters,
         ) as f:
             self.stopped = False
             self.stream = f

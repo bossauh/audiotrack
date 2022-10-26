@@ -12,13 +12,13 @@ install_requires = [
 setup(
     name="audiotrack",
     packages=["audiotrack"],
-    version="0.4",
+    version="0.5",
     license="MIT",
     description="A object oriented multi purpose audio library built with python.",
     author="Philippe Mathew",
     author_email="philmattdev@gmail.com",
     url="https://github.com/bossauh/audiotrack",
-    download_url="https://github.com/bossauh/audiotrack/archive/refs/tags/v_04.tar.gz",
+    download_url="https://github.com/bossauh/audiotrack/archive/refs/tags/v_05.tar.gz",
     keywords=["audio", "recording"],
     install_requires=install_requires,
 )
